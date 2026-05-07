@@ -25,6 +25,19 @@ Open WebUI -> Docker volume for users and chats
 
 Do not run local models on this server.
 
+## DNS Setup For `huihang.icu`
+
+In Alibaba Cloud DNS, add this record before starting Caddy:
+
+```text
+Record type: A
+Host record: chat
+Record value: your server public IPv4 address
+TTL: default
+```
+
+After the record takes effect, `chat.huihang.icu` should resolve to the server. Caddy needs this DNS record plus open `80/tcp` and `443/tcp` ports to issue HTTPS certificates.
+
 ## First Deployment
 
 1. Upload this repository to the server.
@@ -46,10 +59,10 @@ Do not run local models on this server.
    Minimum required values:
 
    ```env
-   SITE_DOMAIN=chat.your-domain.com
-   ACME_EMAIL=you@example.com
+   SITE_DOMAIN=chat.huihang.icu
+   ACME_EMAIL=3361836542@qq.com
    WEBUI_SECRET_KEY=replace-with-a-long-random-string
-   WEBUI_ADMIN_EMAIL=admin@your-domain.com
+   WEBUI_ADMIN_EMAIL=3361836542@qq.com
    WEBUI_ADMIN_PASSWORD=replace-with-a-temporary-admin-password
    LITELLM_MASTER_KEY=sk-replace-with-a-long-random-string
    LITELLM_SALT_KEY=replace-with-a-long-random-string
@@ -86,7 +99,7 @@ Do not run local models on this server.
 7. Open your site.
 
    ```text
-   https://chat.your-domain.com
+   https://chat.huihang.icu
    ```
 
 8. Log in with the admin account from `.env`.

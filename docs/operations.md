@@ -67,7 +67,7 @@ docker compose restart caddy
 Check DNS and Caddy logs:
 
 ```bash
-dig +short chat.your-domain.com
+dig +short chat.huihang.icu
 docker compose logs --tail=100 caddy
 ```
 
