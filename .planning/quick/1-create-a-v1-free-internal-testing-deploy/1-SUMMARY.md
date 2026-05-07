@@ -5,6 +5,7 @@
 - Initialized a lightweight GSD project state for the internal AI chat testbed.
 - Added Docker Compose deployment for Caddy, Open WebUI, LiteLLM, and PostgreSQL.
 - Added LiteLLM DeepSeek official API model configuration.
+- Configured LiteLLM to use `X-OpenWebUI-User-Id` for per-user attribution.
 - Added `.env.example` with all required operator-managed secrets.
 - Added deployment and operations documentation.
 
@@ -19,4 +20,3 @@
 
 - Real API keys and passwords must be placed in `deploy/.env`, which is ignored by git.
 - LiteLLM is bound to `127.0.0.1:4000` for local admin access through an SSH tunnel.
-

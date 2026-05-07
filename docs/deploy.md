@@ -184,15 +184,11 @@ ENABLE_FORWARD_USER_INFO_HEADERS=true
 
 That means users chat in Open WebUI, but all model requests pass through LiteLLM for routing and logging.
 
-LiteLLM also maps Open WebUI user headers:
+LiteLLM uses the Open WebUI user ID header for per-user attribution:
 
 ```yaml
 general_settings:
-  user_header_mappings:
-    - header_name: X-OpenWebUI-User-Id
-      litellm_user_role: internal_user
-    - header_name: X-OpenWebUI-User-Email
-      litellm_user_role: customer
+  user_header_name: X-OpenWebUI-User-Id
 ```
 
 ## Updating
