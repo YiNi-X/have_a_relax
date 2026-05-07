@@ -14,4 +14,4 @@ Create the V1 deployment package for internal team testing.
 
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
-| 1 | Create a V1 free internal testing deployment package for Open WebUI + LiteLLM + PostgreSQL + Caddy with DeepSeek official API configuration and documentation | 2026-05-07 | pending | [1-create-a-v1-free-internal-testing-deploy](./quick/1-create-a-v1-free-internal-testing-deploy/) |
+| 1 | Create a V1 free internal testing deployment package for Open WebUI + LiteLLM + PostgreSQL + Caddy with DeepSeek official API configuration and documentation | 2026-05-07 | f777285 | [1-create-a-v1-free-internal-testing-deploy](./quick/1-create-a-v1-free-internal-testing-deploy/) |
