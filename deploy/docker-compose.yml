@@ -21,7 +21,7 @@ services:
       - ai-chat
 
   open-webui:
-    image: ghcr.io/open-webui/open-webui:main
+    image: openwebui/open-webui:main
     container_name: ai-chat-open-webui
     restart: unless-stopped
     environment:
@@ -45,7 +45,7 @@ services:
       - ai-chat
 
   litellm:
-    image: ghcr.io/berriai/litellm:main-latest
+    image: docker.litellm.ai/berriai/litellm:main-latest
     container_name: ai-chat-litellm
     restart: unless-stopped
     ports:

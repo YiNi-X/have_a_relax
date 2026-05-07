@@ -25,6 +25,15 @@ Open WebUI -> Docker volume for users and chats
 
 Do not run local models on this server.
 
+## Image Pulling In Mainland China
+
+The compose file uses alternate official image sources where possible:
+
+- Open WebUI: `openwebui/open-webui:main`
+- LiteLLM: `docker.litellm.ai/berriai/litellm:main-latest`
+
+Open WebUI publishes identical images to GHCR and Docker Hub. LiteLLM's own docs use `docker.litellm.ai/berriai/litellm:main-latest` for Docker deployment. If Docker Hub is still slow on your server, configure an Alibaba Cloud ACR Docker Hub accelerator on the server.
+
 ## DNS Setup For `huihang.icu`
 
 In Alibaba Cloud DNS, add this record before starting Caddy:
