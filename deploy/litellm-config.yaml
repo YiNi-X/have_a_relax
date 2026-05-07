@@ -1,19 +1,11 @@
 model_list:
-  - model_name: deepseek-v4-flash
+  - model_name: gpt-5.5
     litellm_params:
-      model: deepseek/deepseek-v4-flash
-      api_key: os.environ/DEEPSEEK_API_KEY
+      model: openai/gpt-5.5
+      api_key: os.environ/OPENAI_API_KEY
     model_info:
       mode: chat
-      description: Default low-cost DeepSeek chat model for internal testing.
-
-  - model_name: deepseek-v4-pro
-    litellm_params:
-      model: deepseek/deepseek-v4-pro
-      api_key: os.environ/DEEPSEEK_API_KEY
-    model_info:
-      mode: chat
-      description: Higher-quality DeepSeek model. Enable for selected testers only if needed.
+      description: OpenAI GPT-5.5 model for internal team testing.
 
 litellm_settings:
   master_key: os.environ/LITELLM_MASTER_KEY

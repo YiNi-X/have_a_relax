@@ -4,7 +4,7 @@
 
 - Initialized a lightweight GSD project state for the internal AI chat testbed.
 - Added Docker Compose deployment for Caddy, Open WebUI, LiteLLM, and PostgreSQL.
-- Added LiteLLM DeepSeek official API model configuration.
+- Added LiteLLM OpenAI GPT-5.5 model configuration.
 - Configured LiteLLM to use `X-OpenWebUI-User-Id` for per-user attribution.
 - Added `.env.example` with all required operator-managed secrets.
 - Added deployment and operations documentation.

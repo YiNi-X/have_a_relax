@@ -10,7 +10,7 @@ Build a free internal testing deployment for the development team to evaluate re
 - LiteLLM provides an OpenAI-compatible model gateway and usage/cost logging.
 - PostgreSQL stores LiteLLM state and logs.
 - Caddy provides HTTPS reverse proxy and optional basic access protection.
-- DeepSeek official API is the first upstream model provider.
+- OpenAI GPT-5.5 is the first upstream model provider.
 
 ## Constraints
 
@@ -18,4 +18,3 @@ Build a free internal testing deployment for the development team to evaluate re
 - No local model hosting.
 - No payment, membership, invite-code product logic, or custom frontend in V1.
 - Official API keys only.
-

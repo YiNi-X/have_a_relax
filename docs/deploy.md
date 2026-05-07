@@ -9,7 +9,7 @@ browser
   -> Caddy HTTPS reverse proxy
   -> Open WebUI
   -> LiteLLM Proxy
-  -> DeepSeek official API
+  -> OpenAI GPT-5.5 API
 
 LiteLLM -> PostgreSQL for logs and state
 Open WebUI -> Docker volume for users and chats
@@ -21,7 +21,7 @@ Open WebUI -> Docker volume for users and chats
 - Docker and Docker Compose plugin
 - Domain name pointed to the server
 - Firewall allows only `80/tcp`, `443/tcp`, and SSH
-- DeepSeek API key
+- OpenAI API key with access to `gpt-5.5`
 
 Do not run local models on this server.
 
@@ -54,7 +54,7 @@ Do not run local models on this server.
    LITELLM_MASTER_KEY=sk-replace-with-a-long-random-string
    LITELLM_SALT_KEY=replace-with-a-long-random-string
    POSTGRES_PASSWORD=replace-with-a-long-random-string
-   DEEPSEEK_API_KEY=sk-your-deepseek-key
+   OPENAI_API_KEY=sk-your-openai-key
    ```
 
    Generate random strings with:
@@ -163,10 +163,9 @@ Open WebUI login is enough for many internal tests. If you also want a shared pa
 
 The default LiteLLM config exposes:
 
-- `deepseek-v4-flash`
-- `deepseek-v4-pro`
+- `gpt-5.5`
 
-These names are configured in `deploy/litellm-config.yaml`. DeepSeek currently documents `deepseek-v4-flash` and `deepseek-v4-pro` as the recommended API model names, with `deepseek-chat` and `deepseek-reasoner` kept only for compatibility until July 24, 2026. If DeepSeek changes recommended model names, update this file and restart LiteLLM:
+This name is configured in `deploy/litellm-config.yaml` and routed through LiteLLM as `openai/gpt-5.5`. If your OpenAI account exposes a different model alias, update this file and restart LiteLLM:
 
 ```bash
 docker compose restart litellm

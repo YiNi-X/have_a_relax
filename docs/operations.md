@@ -73,7 +73,7 @@ docker compose logs --tail=100 caddy
 
 ### Login Works But Models Fail
 
-Check LiteLLM logs and your DeepSeek key:
+Check LiteLLM logs and your OpenAI key:
 
 ```bash
 docker compose logs --tail=200 litellm
@@ -81,7 +81,7 @@ docker compose logs --tail=200 litellm
 
 Common causes:
 
-- `DEEPSEEK_API_KEY` is wrong or empty.
+- `OPENAI_API_KEY` is wrong or empty.
 - The upstream account has no balance.
 - The model name in `litellm-config.yaml` is no longer supported.
 - Open WebUI is not using the LiteLLM base URL.
@@ -106,4 +106,3 @@ Export these findings into a short note:
 - Most common use cases
 - Top missing features
 - Decision: keep config-only deployment, customize frontend, or build product backend
-

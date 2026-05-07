@@ -62,7 +62,7 @@ services:
       STORE_MODEL_IN_DB: "true"
       LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY}
       LITELLM_SALT_KEY: ${LITELLM_SALT_KEY}
-      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
       TZ: ${TZ:-Asia/Shanghai}
     volumes:
       - ./litellm-config.yaml:/app/config.yaml:ro
