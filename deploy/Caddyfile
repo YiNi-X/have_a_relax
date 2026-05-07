@@ -1,0 +1,23 @@
+{
+	email {$ACME_EMAIL}
+}
+
+{$SITE_DOMAIN} {
+	encode zstd gzip
+
+	# Optional extra gate before Open WebUI login.
+	# To enable it, set CADDY_BASIC_AUTH_HASH in .env and uncomment this block.
+	# basic_auth {
+	# 	team {$CADDY_BASIC_AUTH_HASH}
+	# }
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+	}
+
+	handle {
+		reverse_proxy open-webui:8080
+	}
+}

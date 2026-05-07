@@ -1,0 +1,102 @@
+services:
+  caddy:
+    image: caddy:2.8
+    container_name: ai-chat-caddy
+    restart: unless-stopped
+    depends_on:
+      - open-webui
+      - litellm
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      SITE_DOMAIN: ${SITE_DOMAIN}
+      ACME_EMAIL: ${ACME_EMAIL}
+      CADDY_BASIC_AUTH_HASH: ${CADDY_BASIC_AUTH_HASH:-}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - ai-chat
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: ai-chat-open-webui
+    restart: unless-stopped
+    environment:
+      WEBUI_NAME: ${WEBUI_NAME:-Team AI Chat}
+      ENABLE_SIGNUP: ${ENABLE_SIGNUP:-false}
+      DEFAULT_USER_ROLE: ${DEFAULT_USER_ROLE:-pending}
+      ENABLE_FORWARD_USER_INFO_HEADERS: "true"
+      OPENAI_API_BASE_URL: http://litellm:4000/v1
+      OPENAI_API_KEY: ${LITELLM_MASTER_KEY}
+      WEBUI_SECRET_KEY: ${WEBUI_SECRET_KEY}
+      WEBUI_URL: https://${SITE_DOMAIN}
+      WEBUI_ADMIN_NAME: ${WEBUI_ADMIN_NAME:-Admin}
+      WEBUI_ADMIN_EMAIL: ${WEBUI_ADMIN_EMAIL:-}
+      WEBUI_ADMIN_PASSWORD: ${WEBUI_ADMIN_PASSWORD:-}
+      TZ: ${TZ:-Asia/Shanghai}
+    volumes:
+      - open_webui_data:/app/backend/data
+    depends_on:
+      - litellm
+    networks:
+      - ai-chat
+
+  litellm:
+    image: ghcr.io/berriai/litellm:main-latest
+    container_name: ai-chat-litellm
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:4000:4000"
+    command:
+      - --config
+      - /app/config.yaml
+      - --port
+      - "4000"
+      - --num_workers
+      - "2"
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      STORE_MODEL_IN_DB: "true"
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY}
+      LITELLM_SALT_KEY: ${LITELLM_SALT_KEY}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY}
+      TZ: ${TZ:-Asia/Shanghai}
+    volumes:
+      - ./litellm-config.yaml:/app/config.yaml:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ai-chat
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: ai-chat-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-litellm}
+      POSTGRES_USER: ${POSTGRES_USER:-litellm}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      TZ: ${TZ:-Asia/Shanghai}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-litellm} -d ${POSTGRES_DB:-litellm}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ai-chat
+
+networks:
+  ai-chat:
+    driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:
+  open_webui_data:
+  postgres_data:
