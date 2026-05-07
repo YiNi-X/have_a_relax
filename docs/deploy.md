@@ -21,7 +21,7 @@ Open WebUI -> Docker volume for users and chats
 - Docker and Docker Compose plugin
 - Domain name pointed to the server
 - Firewall allows only `80/tcp`, `443/tcp`, and SSH
-- OpenAI API key with access to `gpt-5.5`
+- OpenAI API key with access to the model ID configured in `deploy/litellm-config.yaml`
 
 Do not run local models on this server.
 
@@ -165,7 +165,7 @@ The default LiteLLM config exposes:
 
 - `gpt-5.5`
 
-This name is configured in `deploy/litellm-config.yaml` and routed through LiteLLM as `openai/gpt-5.5`. If your OpenAI account exposes a different model alias, update this file and restart LiteLLM:
+This name is configured in `deploy/litellm-config.yaml` and routed through LiteLLM as `openai/gpt-5.5` because this internal test deployment is using the model ID available to the current API key. If your OpenAI account exposes a different model alias, update this file and restart LiteLLM:
 
 ```bash
 docker compose restart litellm
